@@ -1,0 +1,35 @@
+{
+  "name": "eljohnzc bot",
+  "version": "1.0.0",
+  "description": "www.facebook.com/eljohnzc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "www.facebook.com/eljohnzc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "www.facebook.com/eljohnzc"
+  },
+  "homepage": "www.facebook.com/eljohnzc",
+  "devDependencies": {
+    "node": "^14.19.1"
+  },
+  "dependencies": {
+    "@distube/ytdl-core": "^4.11.3",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "axios": "^0.26.1",
+    "express": "^4.17.3",
+    "fca-unofficial": "^1.3.10",
+    "fluent-ffmpeg": "^2.1.2",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "npm": "^8.7.0",
+    "youtube-music-api": "^1.0.6"
+  }
+}
