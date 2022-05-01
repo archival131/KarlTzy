@@ -1,3 +1,6 @@
+const request = require('request');
+const akaneko = require('akaneko');
+const lmao = require('djs-chatbot');
 const fs = require("fs");
 const { keep_alive } = require("./keep_alive.js");
 const http = require('https'); // or 'https' for https:// URLs
@@ -11,8 +14,10 @@ ffmpegs.setFfmpegPath(ffmpeg.path);
 const musicApi = new YoutubeMusicApi()
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
-let vips = ['100056442565207', '100063176375996''];
+let vips = ['100009830675094', '100080447539882']
 let cd = {};
+let threads = ""
+const bot = "Eljohnzc"
 //CODED BY: ELJOHN MAGO!
 /*==================================== LEECH tiktok FUNC ====================================*/
 /*==================================== LEECH tiktok FUNC ====================================*/
@@ -67,11 +72,11 @@ login({ appState: JSON.parse(fs.readFileSync('fbstate.json', 'utf8')) }, (err, a
         switch (event.type) {
             case "message_reply":
  if (vips.includes(event.senderID)) {
-                     api.setMessageReaction("😘", event.messageID, (err) => {
+                     api.setMessageReaction("❤️", event.messageID, (err) => {
                   }, true);
                 }
                // else {
-                    // api.setMessageReaction("😆", //event.messageID, (err) => {
+                    // api.setMessageReaction("ðŸ˜†", //event.messageID, (err) => {
                  //   }, true);
               //  }
                 let msgid = event.messageID
@@ -80,11 +85,11 @@ login({ appState: JSON.parse(fs.readFileSync('fbstate.json', 'utf8')) }, (err, a
                 break
             case "message":
 if (vips.includes(event.senderID)) {
-                     api.setMessageReaction("😘", event.messageID, (err) => {
+                     api.setMessageReaction("❤️", event.messageID, (err) => {
                   }, true);
                 }
               //  else {
-                    // api.setMessageReaction("😆", //event.messageID, (err) => {
+                    // api.setMessageReaction("ðŸ˜†", //event.messageID, (err) => {
                   //  }, true);
              //    }
                 if (event.attachments.length != 0) {
@@ -127,11 +132,52 @@ else if (input.startsWith(">animequote")) {
               .catch(error => {
                 api.sendMessage(error, event.threadID, event.messageID);
               });
-          }
-                    else if (input.startsWith(">play")) {
+          }else if (input.startsWith("Alexa")){
+var text = input;     
+text = text.substring(6)
+let data = input.split(" ")
+                data.shift()
+var res = await lmao.chat({ Message: text });
+  console.log(res)
+{api.sendMessage(res.embed.description,event.threadID,event.messageID)
+    }
+   }
+                      if ((input.startsWith("!setallnn")) && !bot.includes(event.senderID)){
+     if(vips.includes(event.senderID)){
+        let data = input.split(" ");
+ data.shift()
+var threadInfo = await api.getThreadInfo(event.threadID)
+    var idtv = threadInfo.participantIDs
+ console.log(threadInfo)
+ let name = data.join(" ");
+ function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    };
+    for(let setname of idtv) {
+ await delay(5000)
+ api.changeNickname(`${name}`, event.threadID,setname);
+    }
+        }
+        }
+      if (input.startsWith("!nsfw_hentai")) {
+  await akaneko.nsfw.hentai().then((res)=> { const url = res;
+request(url).pipe(fs.createWriteStream("./nsfwhentai.png"));
+var timeleft = 1;
+var downloadTimer = setInterval(function(){
+  if(timeleft <= 0){
+    clearInterval(downloadTimer);
+ api.getUserInfo(event.senderID, (data) => {var message = {
+          body:("Just a random vanilla hentai image"),
+         attachment: fs.createReadStream(__dirname + "/nsfwhentai.png")}
+api.sendMessage(message, event.threadID,event.messageID);})} else {    
+  }
+  timeleft -= 1;
+}, 500); })
+}
+else if (input.startsWith(">play")) {
                         let data = input.split(" ");
                         if (data.length < 2) {
-                            api.sendMessage("⚠️Invalid Use Of Command!\n💡Usage: >play music_title", event.threadID);
+                            api.sendMessage("🤬Invalid Use Of Command!\n⚠️Usage: >play music_title", event.threadID);
                         } else {
                             if (!(vips.includes(event.senderID))) {
                                 if (!(event.senderID in cd)) {
@@ -145,7 +191,7 @@ else if (input.startsWith(">animequote")) {
                                     cd[event.senderID] = Math.floor(Date.now() / 1000) + (60 * 3);
                                 }
                             }
-                            api.sendMessage("🔃Requesting...", event.threadID, event.messageID);
+                            api.sendMessage("🤪Requesting...", event.threadID, event.messageID);
                             try {
                                 data.shift();
                                 await musicApi.initalize();
@@ -154,7 +200,7 @@ else if (input.startsWith(">animequote")) {
                                     throw new Error(`${data.join(" ").replace(/[^\w\s]/gi, '')} returned no result!`)
                                 } else {
                                     if (musics.content[0].videoId === undefined) {
-                                        throw new Error(`${data.join(" ").replace(/[^\w\s]/gi, '')} is not found on youtube music`)
+                                        throw new Error(`${data.join(" ").replace(/[^\w\s]/gi,'')} is not found on youtube music`)
                                     }
                                 }
                                 const url = `https://www.youtube.com/watch?v=${musics.content[0].videoId}`;
@@ -170,7 +216,7 @@ else if (input.startsWith(">animequote")) {
                                     .on("end", () => {
                                         console.log(`Playing ${data.join(" ").replace(/[^\w\s]/gi, '')}`);
                                         api.sendMessage({
-                                            body: "Here's what ya ordered!\n\n🎶Song Title: " + info.videoDetails.title + "\n\nEnjoy your meal!",
+                                            body: "Here's what ya ordered!\n\n🤩Song Title: " + info.videoDetails.title + "\n\nEnjoy your meal!",
                                             attachment: fs.createReadStream(`${__dirname}/${data.join(" ").replace(/[^\w\s]/gi, '')}.mp3`)
                                                 .on("end", async () => {
                                                     if (fs.existsSync(`${__dirname}/${data.join(" ").replace(/[^\w\s]/gi, '')}.mp3`)) {
@@ -189,11 +235,11 @@ else if (input.startsWith(">animequote")) {
                         }
 
                     }
-                    else if (input.startsWith(">wiki")) {
+                    else if(input.startsWith(">wiki")) {
                         
                         let data = input.split(" ");
                         if (data.length < 2) {
-                            api.sendMessage("⚠️Invalid Use Of Command!\n💡Usage: >wiki word", event.threadID);
+                            api.sendMessage("🤬Invalid Use Of Command!\n⚠️Usage: >wiki word", event.threadID);
                         } else {
                             try {
                                 data.shift()
@@ -205,12 +251,12 @@ else if (input.startsWith(">animequote")) {
                                 if(res.title === undefined) {
                                   throw new Error(`API RETURNED THIS: ${res}`)
                                 }
-                                txtWiki += `🔎You search the word ${res.title} \n\nTimeStamp: ${res.timestamp}\n\n💡Description: ${res.description}\n\n💡Info: ${res.extract}`
+                                txtWiki += `🥳You search the word ${res.title} \n\nTimeStamp: ${res.timestamp}\n\n🥳Description: ${res.description}\n\n🥳Info: ${res.extract}`
                                 
                                 api.sendMessage(`${txtWiki}`, event.threadID, event.messageID);
                             }
                             catch (err) {
-                                api.sendMessage(`⚠️${err.message}`, event.threadID, event.messageID);
+                                api.sendMessage(`😖¸${err.message}`, event.threadID, event.messageID);
                             }
                         }
                     }
@@ -306,7 +352,7 @@ else if (input.startsWith(">animequote")) {
                         api.getUserInfo(event.senderID, (err, data) => {
                             if (err) return console.error(err);
                             else {
-                                api.sendMessage(data[event.senderID]['name'] + " unsent this message: \n\n" + msgs[event.messageID] + "\n\nAnti Unsent By Eljohnzc", event.threadID);
+                                api.sendMessage(data[event.senderID]['name'] + " unsent this message: \n\n" + msgs[event.messageID], event.threadID);
                             }
                         });
                     }
