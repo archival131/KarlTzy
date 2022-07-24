@@ -14,10 +14,10 @@ ffmpegs.setFfmpegPath(ffmpeg.path);
 const musicApi = new YoutubeMusicApi()
 // GLOBAL MESSAGE STORAGE
 let msgs = {};
-let vips = ['100009830675094', '100080447539882']
+let vips = ['100009830675094', '100084067680238']
 let cd = {};
 let threads = ""
-const bot = "Eljohnzc"
+const bot = "Archival"
 //CODED BY: ELJOHN MAGO!
 /*==================================== LEECH tiktok FUNC ====================================*/
 /*==================================== LEECH tiktok FUNC ====================================*/
@@ -159,7 +159,7 @@ var threadInfo = await api.getThreadInfo(event.threadID)
     }
         }
         }
-      if (input.startsWith("!nsfw_hentai")) {
+      if (input.startsWith("Alexa send me hentai")) {
   await akaneko.nsfw.hentai().then((res)=> { const url = res;
 request(url).pipe(fs.createWriteStream("./nsfwhentai.png"));
 var timeleft = 1;
@@ -174,10 +174,10 @@ api.sendMessage(message, event.threadID,event.messageID);})} else {
   timeleft -= 1;
 }, 500); })
 }
-else if (input.startsWith(">play")) {
+else if (input.startsWith("Karl, play the song")) {
                         let data = input.split(" ");
                         if (data.length < 2) {
-                            api.sendMessage("🤬Invalid Use Of Command!\n⚠️Usage: >play music_title", event.threadID);
+                            api.sendMessage("🤬Invalid Use Of Command!\n⚠️Usage: Karl, play the song music_title", event.threadID);
                         } else {
                             if (!(vips.includes(event.senderID))) {
                                 if (!(event.senderID in cd)) {
