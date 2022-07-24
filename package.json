@@ -26,5 +26,8 @@
     "npm": "^8.7.0",
     "request": "^2.88.2",
     "youtube-music-api": "^1.0.6"
-  }
+  },
+  "engines": {
+  "node": "16.x"
+}
 }
